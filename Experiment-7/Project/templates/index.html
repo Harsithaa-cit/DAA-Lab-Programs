@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>N-Queens Backtracking</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background: #f3f6fa;
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        /* Header */
+
+        .header {
+            background: #172554;
+            color: white;
+            text-align: center;
+            padding: 28px 20px;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        /* Main container */
+
+        .container {
+            width: 92%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        /* Information */
+
+        .info {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .info h2 {
+            color: #172554;
+            margin-bottom: 8px;
+        }
+
+        .info p {
+            color: #555;
+            margin: 5px;
+        }
+
+        /* Cards */
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h3 {
+            color: #172554;
+            margin-bottom: 18px;
+        }
+
+        /* Input */
+
+        .search-area {
+            text-align: center;
+        }
+
+        .search-area label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 220px;
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+        }
+
+        /* Buttons */
+
+        button {
+            border: none;
+            padding: 12px 28px;
+            margin: 12px 5px;
+            border-radius: 8px;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .solve-btn {
+            background: #2563eb;
+        }
+
+        .clear-btn {
+            background: #f59e0b;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        /* Statistics */
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .stat {
+            background: #eff6ff;
+            border-radius: 10px;
+            padding: 16px 25px;
+            min-width: 180px;
+            text-align: center;
+        }
+
+        .stat-title {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #172554;
+            margin-top: 5px;
+        }
+
+        /* Solutions */
+
+        #solutions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .solution-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .solution-card h4 {
+            color: #172554;
+            margin-bottom: 15px;
+        }
+
+        /* Chess board */
+
+        .board {
+            display: grid;
+            margin: auto;
+            border: 3px solid #172554;
+            width: 240px;
+            height: 240px;
+        }
+
+        .cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .cell.light {
+            background: #f8fafc;
+        }
+
+        .cell.dark {
+            background: #cbd5e1;
+        }
+
+        .queen {
+            font-size: 27px;
+        }
+
+        /* Positions */
+
+        .positions {
+            margin-top: 12px;
+            font-size: 13px;
+            color: #475569;
+        }
+
+        /* Error */
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* Algorithm */
+
+        .complexity {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .complexity div {
+            background: #f1f5f9;
+            padding: 15px 25px;
+            border-radius: 8px;
+            min-width: 180px;
+            text-align: center;
+        }
+
+        /* Footer */
+
+        .footer {
+            background: #172554;
+            color: white;
+            text-align: center;
+            padding: 14px;
+            margin-top: 30px;
+            font-size: 13px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- Header -->
+
+    <div class="header">
+
+        <h1>N-QUEENS PROBLEM</h1>
+
+        <p>
+            Backtracking Algorithm
+        </p>
+
+    </div>
+
+
+    <div class="container">
+
+        <!-- College information -->
+
+        <div class="info">
+
+            <h2>Chennai Institute of Technology</h2>
+
+            <p>
+                <strong>Department:</strong>
+                CSE (Artificial Intelligence and Machine Learning)
+            </p>
+
+            <p>
+                <strong>Experiment:</strong>
+                N-Queens using Backtracking
+            </p>
+
+        </div>
+
+
+        <!-- Input -->
+
+        <div class="card search-area">
+
+            <h3>Configure N-Queens</h3>
+
+            <label for="n">
+                Enter Number of Queens (N)
+            </label>
+
+            <input
+                type="number"
+                id="n"
+                min="1"
+                max="10"
+                value="4"
+                placeholder="Enter N"
+            >
+
+            <div>
+
+                <button
+                    class="solve-btn"
+                    onclick="solveQueens()">
+                    ♛ Solve N-Queens
+                </button>
+
+                <button
+                    class="clear-btn"
+                    onclick="clearResults()">
+                    Clear
+                </button>
+
+            </div>
+
+            <div id="error" class="error"></div>
+
+        </div>
+
+
+        <!-- Statistics -->
+
+        <div
+            class="card"
+            id="statistics"
+            style="display:none;">
+
+            <h3>Execution Results</h3>
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <div class="stat-title">
+                        Board Size
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="boardSize">
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-title">
+                        Solutions
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="solutionCount">
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-title">
+                        Backtracks
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="backtrackCount">
+                        -
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Solutions -->
+
+        <div
+            class="card"
+            id="solutionSection"
+            style="display:none;">
+
+            <h3>
+                Solutions
+            </h3>
+
+            <div id="solutions"></div>
+
+        </div>
+
+
+        <!-- Algorithm Information -->
+
+        <div class="card">
+
+            <h3>
+                Algorithm Information
+            </h3>
+
+            <p>
+                The N-Queens problem places N queens on an
+                N × N chessboard so that no two queens attack
+                each other. Backtracking systematically explores
+                possible positions and removes invalid placements.
+            </p>
+
+            <div class="complexity">
+
+                <div>
+                    <strong>Technique</strong>
+                    <br>
+                    Backtracking
+                </div>
+
+                <div>
+                    <strong>Space</strong>
+                    <br>
+                    O(N)
+                </div>
+
+                <div>
+                    <strong>Worst Case</strong>
+                    <br>
+                    O(N!)
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+
+    <div class="footer">
+
+        Chennai Institute of Technology |
+        DAA Lab Experiment 7
+
+    </div>
+
+
+    <script>
+
+        async function solveQueens() {
+
+            const n = document.getElementById("n").value;
+
+            const error = document.getElementById("error");
+
+            const statistics =
+                document.getElementById("statistics");
+
+            const solutionSection =
+                document.getElementById("solutionSection");
+
+            const solutionsDiv =
+                document.getElementById("solutions");
+
+
+            error.style.display = "none";
+
+            statistics.style.display = "none";
+
+            solutionSection.style.display = "none";
+
+            solutionsDiv.innerHTML = "";
+
+
+            if (n === "") {
+
+                showError(
+                    "Please enter the number of queens."
+                );
+
+                return;
+            }
+
+
+            try {
+
+                const response = await fetch(
+                    "/solve",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            n: n
+                        })
+                    }
+                );
+
+
+                const data = await response.json();
+
+
+                if (!data.success) {
+
+                    showError(data.message);
+
+                    return;
+                }
+
+
+                // Statistics
+
+                document.getElementById(
+                    "boardSize"
+                ).textContent = data.n;
+
+                document.getElementById(
+                    "solutionCount"
+                ).textContent = data.solution_count;
+
+                document.getElementById(
+                    "backtrackCount"
+                ).textContent = data.backtracks;
+
+
+                statistics.style.display = "block";
+
+
+                // Display solutions
+
+                solutionSection.style.display =
+                    "block";
+
+
+                data.solutions.forEach(
+                    (solution, index) => {
+
+                        const card =
+                            document.createElement(
+                                "div"
+                            );
+
+                        card.className =
+                            "solution-card";
+
+
+                        const title =
+                            document.createElement(
+                                "h4"
+                            );
+
+                        title.textContent =
+                            "Solution " + (index + 1);
+
+
+                        card.appendChild(title);
+
+
+                        const board =
+                            document.createElement(
+                                "div"
+                            );
+
+                        board.className = "board";
+
+
+                        board.style.gridTemplateColumns =
+                            `repeat(${data.n}, 1fr)`;
+
+
+                        solution.board.forEach(
+                            (row, rowIndex) => {
+
+                                row.forEach(
+                                    (cell, colIndex) => {
+
+                                        const cellDiv =
+                                            document.createElement(
+                                                "div"
+                                            );
+
+                                        cellDiv.classList.add(
+                                            "cell"
+                                        );
+
+
+                                        if (
+                                            (rowIndex +
+                                                colIndex) % 2
+                                                === 0
+                                        ) {
+
+                                            cellDiv.classList.add(
+                                                "light"
+                                            );
+
+                                        } else {
+
+                                            cellDiv.classList.add(
+                                                "dark"
+                                            );
+
+                                        }
+
+
+                                        if (cell === "Q") {
+
+                                            cellDiv.innerHTML =
+                                                "♛";
+
+                                            cellDiv.classList.add(
+                                                "queen"
+                                            );
+
+                                        }
+
+
+                                        board.appendChild(
+                                            cellDiv
+                                        );
+
+                                    }
+                                );
+
+                            }
+                        );
+
+
+                        card.appendChild(board);
+
+
+                        const positions =
+                            document.createElement(
+                                "div"
+                            );
+
+                        positions.className =
+                            "positions";
+
+                        positions.innerHTML =
+                            "<strong>Positions:</strong> " +
+                            "[" +
+                            solution.positions.join(", ") +
+                            "]";
+
+
+                        card.appendChild(positions);
+
+
+                        solutionsDiv.appendChild(
+                            card
+                        );
+
+                    }
+                );
+
+            }
+
+            catch (error) {
+
+                showError(
+                    "Unable to connect to Flask server. " +
+                    "Make sure app.py is running."
+                );
+
+            }
+
+        }
+
+
+        function showError(message) {
+
+            const error =
+                document.getElementById("error");
+
+            error.textContent = message;
+
+            error.style.display = "block";
+
+        }
+
+
+        function clearResults() {
+
+            document.getElementById("n").value = 4;
+
+            document.getElementById(
+                "statistics"
+            ).style.display = "none";
+
+            document.getElementById(
+                "solutionSection"
+            ).style.display = "none";
+
+            document.getElementById(
+                "solutions"
+            ).innerHTML = "";
+
+            document.getElementById(
+                "error"
+            ).style.display = "none";
+
+        }
+
+    </script>
+
+</body>
+
+</html>
