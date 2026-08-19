@@ -1,0 +1,438 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #172033;
+    min-height: 100vh;
+}
+
+
+.container {
+    width: min(1100px, 92%);
+    margin: auto;
+    padding: 40px 0;
+}
+
+
+/* ---------------------------------
+   Header
+--------------------------------- */
+
+header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+
+.badge {
+    display: inline-block;
+    padding: 7px 14px;
+    border-radius: 20px;
+    background: #e8edf7;
+    color: #44516b;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+
+header h1 {
+    font-size: 42px;
+    line-height: 1.1;
+    margin-bottom: 15px;
+}
+
+
+header h1 span {
+    display: block;
+}
+
+
+header p {
+    max-width: 650px;
+    margin: auto;
+    color: #687386;
+    line-height: 1.7;
+}
+
+
+/* ---------------------------------
+   Cards
+--------------------------------- */
+
+.card {
+    background: white;
+    border: 1px solid #e4e8ef;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 8px 25px rgba(20, 30, 50, 0.05);
+}
+
+
+.card h2 {
+    margin-bottom: 22px;
+}
+
+
+/* ---------------------------------
+   Controls
+--------------------------------- */
+
+.controls {
+    margin-bottom: 30px;
+}
+
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+select,
+input {
+    padding: 13px;
+    border: 1px solid #d7dce5;
+    border-radius: 10px;
+    background: white;
+    font-size: 15px;
+    outline: none;
+}
+
+
+select:focus,
+input:focus {
+    border-color: #596bff;
+}
+
+
+.button-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+
+button {
+    border: none;
+    border-radius: 10px;
+    padding: 13px 22px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+.primary-btn {
+    background: #172033;
+    color: white;
+}
+
+
+.secondary-btn {
+    background: #e9edf5;
+    color: #172033;
+}
+
+
+/* ---------------------------------
+   Loading / Error
+--------------------------------- */
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+}
+
+
+.error {
+    padding: 15px 18px;
+    background: #ffe9e9;
+    color: #a42626;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+
+
+.hidden {
+    display: none;
+}
+
+
+/* ---------------------------------
+   Section title
+--------------------------------- */
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 20px;
+}
+
+
+.small-label {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: #6b7485;
+    font-weight: bold;
+}
+
+
+.section-title h2 {
+    margin-top: 5px;
+}
+
+
+#inputBadge {
+    background: #eef1f7;
+    color: #536077;
+    padding: 8px 13px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+
+/* ---------------------------------
+   Stats
+--------------------------------- */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+
+.stat-card {
+    background: white;
+    border: 1px solid #e4e8ef;
+    border-radius: 15px;
+    padding: 22px;
+}
+
+
+.stat-card span {
+    display: block;
+    color: #737d8f;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+
+.stat-card strong {
+    font-size: 24px;
+}
+
+
+/* ---------------------------------
+   Algorithm Cards
+--------------------------------- */
+
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+
+.algorithm-card {
+    background: white;
+    border: 1px solid #e4e8ef;
+    border-radius: 18px;
+    padding: 25px;
+}
+
+
+.algorithm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+
+.algorithm-header h3 {
+    font-size: 18px;
+}
+
+
+.algorithm-header span {
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: #eef1f7;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+
+.metric {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #edf0f4;
+}
+
+
+.metric span {
+    color: #707a8d;
+}
+
+
+.complexity {
+    margin-top: 18px;
+    padding: 14px;
+    background: #f7f8fa;
+    border-radius: 10px;
+    color: #687386;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* ---------------------------------
+   Chart
+--------------------------------- */
+
+.chart-card {
+    margin-bottom: 20px;
+}
+
+
+.bar-section {
+    margin-bottom: 25px;
+}
+
+
+.bar-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+.bar-container {
+    height: 28px;
+    background: #edf0f4;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+.bar {
+    height: 100%;
+    width: 0;
+    border-radius: 8px;
+    transition: width 0.7s ease;
+}
+
+
+.deterministic {
+    background: #687386;
+}
+
+
+.randomized {
+    background: #172033;
+}
+
+
+/* ---------------------------------
+   Explanation
+--------------------------------- */
+
+.explanation {
+    margin-bottom: 30px;
+}
+
+
+.explanation p {
+    color: #626d80;
+    line-height: 1.8;
+}
+
+
+/* ---------------------------------
+   Footer
+--------------------------------- */
+
+footer {
+    text-align: center;
+    color: #8a93a2;
+    font-size: 12px;
+    line-height: 1.8;
+    padding: 30px 0;
+}
+
+
+/* ---------------------------------
+   Responsive
+--------------------------------- */
+
+@media (max-width: 750px) {
+
+    .form-grid,
+    .comparison-grid,
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    header h1 {
+        font-size: 32px;
+    }
+
+
+    .button-row {
+        flex-direction: column;
+    }
+
+
+    .section-title {
+        align-items: start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+}

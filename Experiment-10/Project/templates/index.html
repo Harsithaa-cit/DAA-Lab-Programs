@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Quick Sort Efficiency Analyzer</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+
+            <div class="badge">
+                DAA • EXPERIMENT 10
+            </div>
+
+            <h1>
+                Quick Sort
+                <span>Efficiency Analyzer</span>
+            </h1>
+
+            <p>
+                Compare Deterministic Quick Sort and
+                Randomized Quick Sort across different
+                input configurations.
+            </p>
+
+        </header>
+
+
+        <!-- Controls -->
+
+        <section class="card controls">
+
+            <h2>Experiment Configuration</h2>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Input Type
+                    </label>
+
+                    <select id="inputType">
+
+                        <option value="random">
+                            Random
+                        </option>
+
+                        <option value="sorted">
+                            Sorted
+                        </option>
+
+                        <option value="reverse">
+                            Reverse Sorted
+                        </option>
+
+                        <option value="nearly_sorted">
+                            Nearly Sorted
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Array Size
+                    </label>
+
+                    <input
+                        type="number"
+                        id="arraySize"
+                        value="1000"
+                        min="1"
+                        max="10000"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="button-row">
+
+                <button
+                    id="compareBtn"
+                    class="primary-btn"
+                >
+                    Compare Algorithms
+                </button>
+
+                <button
+                    id="singleBtn"
+                    class="secondary-btn"
+                >
+                    Run Selected Algorithm
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- Loading -->
+
+        <div
+            id="loading"
+            class="loading hidden"
+        >
+            Running algorithms...
+        </div>
+
+
+        <!-- Error -->
+
+        <div
+            id="error"
+            class="error hidden"
+        ></div>
+
+
+        <!-- Results -->
+
+        <section
+            id="results"
+            class="hidden"
+        >
+
+            <div class="section-title">
+
+                <div>
+
+                    <span class="small-label">
+                        PERFORMANCE RESULTS
+                    </span>
+
+                    <h2>
+                        Algorithm Comparison
+                    </h2>
+
+                </div>
+
+                <div id="inputBadge"></div>
+
+            </div>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <span>
+                        Array Size
+                    </span>
+
+                    <strong id="resultSize">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>
+                        DQS Comparisons
+                    </span>
+
+                    <strong id="dComparisons">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>
+                        RQS Comparisons
+                    </span>
+
+                    <strong id="rComparisons">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>
+                        Faster Algorithm
+                    </span>
+
+                    <strong id="winner">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- Detailed comparison -->
+
+            <div class="comparison-grid">
+
+                <div class="algorithm-card">
+
+                    <div class="algorithm-header">
+
+                        <h3>
+                            Deterministic Quick Sort
+                        </h3>
+
+                        <span>
+                            DQS
+                        </span>
+
+                    </div>
+
+                    <div class="metric">
+
+                        <span>
+                            Comparisons
+                        </span>
+
+                        <strong id="dCompDetail">
+                            -
+                        </strong>
+
+                    </div>
+
+                    <div class="metric">
+
+                        <span>
+                            Execution Time
+                        </span>
+
+                        <strong>
+                            <span id="dTime">
+                                -
+                            </span>
+                            ms
+                        </strong>
+
+                    </div>
+
+                    <div class="complexity">
+                        Average: O(n log n)<br>
+                        Worst: O(n²)
+                    </div>
+
+                </div>
+
+
+                <div class="algorithm-card">
+
+                    <div class="algorithm-header">
+
+                        <h3>
+                            Randomized Quick Sort
+                        </h3>
+
+                        <span>
+                            RQS
+                        </span>
+
+                    </div>
+
+                    <div class="metric">
+
+                        <span>
+                            Comparisons
+                        </span>
+
+                        <strong id="rCompDetail">
+                            -
+                        </strong>
+
+                    </div>
+
+                    <div class="metric">
+
+                        <span>
+                            Execution Time
+                        </span>
+
+                        <strong>
+                            <span id="rTime">
+                                -
+                            </span>
+                            ms
+                        </strong>
+
+                    </div>
+
+                    <div class="complexity">
+                        Expected: O(n log n)<br>
+                        Worst: O(n²)
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Visual Bars -->
+
+            <div class="card chart-card">
+
+                <h2>
+                    Comparison Count
+                </h2>
+
+                <div class="bar-section">
+
+                    <div class="bar-label">
+                        <span>
+                            Deterministic
+                        </span>
+
+                        <span id="dBarValue">
+                            0
+                        </span>
+                    </div>
+
+                    <div class="bar-container">
+
+                        <div
+                            id="dBar"
+                            class="bar deterministic"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="bar-section">
+
+                    <div class="bar-label">
+
+                        <span>
+                            Randomized
+                        </span>
+
+                        <span id="rBarValue">
+                            0
+                        </span>
+
+                    </div>
+
+                    <div class="bar-container">
+
+                        <div
+                            id="rBar"
+                            class="bar randomized"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Explanation -->
+
+            <div class="card explanation">
+
+                <h2>
+                    What does this mean?
+                </h2>
+
+                <p id="explanationText">
+                    -
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <footer>
+
+            <p>
+                AM5303 • Design and Analysis of Algorithms
+            </p>
+
+            <p>
+                Experiment 10 — Improving Quick Sort
+                Efficiency using Randomized Algorithm
+            </p>
+
+        </footer>
+
+    </div>
+
+
+    <script
+        src="{{ url_for('static', filename='script.js') }}"
+    ></script>
+
+</body>
+
+</html>
