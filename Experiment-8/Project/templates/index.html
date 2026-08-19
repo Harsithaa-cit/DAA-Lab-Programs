@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TSP Visualizer | Experiment 8</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                TSP
+            </div>
+
+            <div>
+                <h1>RouteCraft</h1>
+                <p>Travelling Salesman Problem</p>
+            </div>
+
+        </div>
+
+        <span class="experiment-badge">
+            DAA • EXP 08
+        </span>
+
+    </header>
+
+
+    <main>
+
+        <section class="hero">
+
+            <div>
+
+                <span class="eyebrow">
+                    ALGORITHM VISUALIZER
+                </span>
+
+                <h2>
+                    Find the shortest possible tour.
+                </h2>
+
+                <p>
+                    Build a weighted city network, run the TSP solver,
+                    and see the optimal route with its total travel cost.
+                </p>
+
+            </div>
+
+            <div class="hero-icon">
+                ↗
+            </div>
+
+        </section>
+
+
+        <section class="workspace">
+
+
+            <!-- INPUT PANEL -->
+
+            <div class="panel matrix-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            INPUT
+                        </span>
+
+                        <h3>
+                            Cost Matrix
+                        </h3>
+
+                    </div>
+
+                    <select id="cityCount">
+
+                        <option value="4">
+                            4 Cities
+                        </option>
+
+                        <option value="5" selected>
+                            5 Cities
+                        </option>
+
+                        <option value="6">
+                            6 Cities
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div id="matrixContainer"
+                     class="matrix-container">
+                </div>
+
+
+                <div class="actions">
+
+                    <button id="sampleBtn"
+                            class="secondary-btn">
+
+                        Load Sample
+
+                    </button>
+
+
+                    <button id="solveBtn"
+                            class="primary-btn">
+
+                        <span>
+                            Find Optimal Tour
+                        </span>
+
+                        <span class="arrow">
+                            →
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <p id="errorMessage"
+                   class="error-message">
+                </p>
+
+            </div>
+
+
+            <!-- RESULT PANEL -->
+
+            <div class="panel result-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            OUTPUT
+                        </span>
+
+                        <h3>
+                            Optimal Solution
+                        </h3>
+
+                    </div>
+
+                    <span id="status"
+                          class="status ready">
+
+                        READY
+
+                    </span>
+
+                </div>
+
+
+                <div id="emptyState"
+                     class="empty-state">
+
+                    <div class="route-placeholder">
+
+                        <span>A</span>
+
+                        <i>—</i>
+
+                        <span>B</span>
+
+                        <i>—</i>
+
+                        <span>C</span>
+
+                    </div>
+
+                    <h4>
+                        Your best route will appear here
+                    </h4>
+
+                    <p>
+                        Enter the city costs and click
+                        <b>Find Optimal Tour</b>.
+                    </p>
+
+                </div>
+
+
+                <div id="resultContent"
+                     class="result-content hidden">
+
+
+                    <div class="stats">
+
+                        <div class="stat-card">
+
+                            <span>
+                                Minimum Cost
+                            </span>
+
+                            <strong id="minimumCost">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="stat-card">
+
+                            <span>
+                                Cities
+                            </span>
+
+                            <strong id="cityTotal">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="stat-card">
+
+                            <span>
+                                Execution
+                            </span>
+
+                            <strong id="executionTime">
+                                —
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="route-card">
+
+                        <div class="route-title">
+
+                            <span>
+                                OPTIMAL TOUR
+                            </span>
+
+                            <span>
+                                START = A
+                            </span>
+
+                        </div>
+
+
+                        <div id="routeDisplay"
+                             class="route-display">
+                        </div>
+
+                    </div>
+
+
+                    <div class="verification">
+
+                        <div class="verification-heading">
+
+                            <h4>
+                                Path Verification
+                            </h4>
+
+                            <span>
+                                EDGE COSTS
+                            </span>
+
+                        </div>
+
+
+                        <div id="verificationList">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="info-grid">
+
+            <article>
+
+                <span class="info-number">
+                    01
+                </span>
+
+                <h3>
+                    Model
+                </h3>
+
+                <p>
+                    Each city is represented as a node and
+                    every travel cost is represented as a
+                    weighted edge.
+                </p>
+
+            </article>
+
+
+            <article>
+
+                <span class="info-number">
+                    02
+                </span>
+
+                <h3>
+                    Search
+                </h3>
+
+                <p>
+                    The solver evaluates possible tours and
+                    keeps the route with the smallest total cost.
+                </p>
+
+            </article>
+
+
+            <article>
+
+                <span class="info-number">
+                    03
+                </span>
+
+                <h3>
+                    Result
+                </h3>
+
+                <p>
+                    The shortest tour is returned along with
+                    its edge-by-edge cost verification.
+                </p>
+
+            </article>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <span>
+            Design & Algorithm Lab
+        </span>
+
+        <span>
+            Brute Force TSP • Python + Flask
+        </span>
+
+    </footer>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='script.js') }}">
+</script>
+
+</body>
+
+</html>
